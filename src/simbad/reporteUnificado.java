@@ -33,7 +33,7 @@ public class reporteUnificado {
         this.fechaTermino = fechaTermino;
     }
     
-    
+    //Busca la mayor latitud
     private double mayorLatitud() throws FileNotFoundException, IOException{ 
         Workbook workbook=new XSSFWorkbook(new FileInputStream("D:\\ejemplo_datos.xlsx"));
         Sheet sheet=workbook.getSheet("Sheet1"); 
@@ -52,12 +52,8 @@ public class reporteUnificado {
         return mayorLat;
             
     }
-        
-    
-    
-        
-    
-    private double menorLatitud() throws FileNotFoundException, IOException{ 
+    //busca la menor latitud
+        private double menorLatitud() throws FileNotFoundException, IOException{ 
         Workbook workbook=new XSSFWorkbook(new FileInputStream("D:\\ejemplo_datos.xlsx"));
         Sheet sheet=workbook.getSheet("Sheet1"); 
         double menorLat=0;
@@ -75,7 +71,7 @@ public class reporteUnificado {
         
         return menorLat;
     }
-    
+    //busca la mayor longitud
     private double mayorLongitud() throws FileNotFoundException, IOException{ 
         Workbook workbook=new XSSFWorkbook(new FileInputStream("D:\\ejemplo_datos.xlsx"));
         Sheet sheet=workbook.getSheet("Sheet1"); 
@@ -94,13 +90,13 @@ public class reporteUnificado {
         }
         return mayorLon;
     }
+    //busca la menor longitud
     private double menorLongitud() throws FileNotFoundException, IOException{ 
         Workbook workbook=new XSSFWorkbook(new FileInputStream("D:\\ejemplo_datos.xlsx"));
         Sheet sheet=workbook.getSheet("Sheet1"); 
         double menorLon=0;
         Row row=sheet.getRow(0);
-        
-        
+        mayorLatitud(workbook);
         for(int j=0;j<row.getLastCellNum();j++){
             if(row.getCell(j).getRichStringCellValue().toString().equals("lon_ciu")) 
                 for(int i=1;i<sheet.getLastRowNum();i++){
@@ -121,26 +117,13 @@ public class reporteUnificado {
     
     
     
-    
     public void ObtenerReporte() throws IOException {
+        
+        //Se alimenta de los datos proporcionados por metodos privados que interactuan con excel y genera el reporte unificado
         Workbook workbook=new XSSFWorkbook(new FileInputStream("D:\\ejemplo_datos.xlsx"));
         Sheet sheet=workbook.getSheet("Sheet1");
         
-       
-        
-        
-        
-        
-        for(Iterator<Row>rit=sheet.rowIterator();rit.hasNext();){
-            Row row=rit.next();
-            for(Iterator<Cell>cit=row.cellIterator();cit.hasNext();){
-                Cell cell=cit.next();
-                cell.setCellType(Cell.CELL_TYPE_STRING);
-                System.out.print(cell.getStringCellValue()+"\t");
-            }
-            System.out.println();
-            
-        }
+   
         
     }
 
